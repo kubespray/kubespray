@@ -19,10 +19,10 @@ Example inventory generator usage:
 ```ShellSession
 cp -r inventory/sample inventory/mycluster
 declare -a IPS=(10.10.1.3 10.10.1.4 10.10.1.5)
-CONFIG_FILE=inventory/mycluster/hosts.yml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
+CONFIG_FILE=inventory/mycluster/inventory.ini python3 contrib/inventory_builder/inventory.py ${IPS[@]}
 ```
 
-Then use `inventory/mycluster/hosts.yml` as inventory file.
+Then use `inventory/mycluster/inventory.ini` as inventory file.
 
 ## Starting custom deployment
 
@@ -32,7 +32,7 @@ and start the deployment:
 **IMPORTANT**: Edit my\_inventory/groups\_vars/\*.yaml to override data vars:
 
 ```ShellSession
-ansible-playbook -i inventory/mycluster/hosts.yml cluster.yml -b -v \
+ansible-playbook -i inventory/mycluster/inventory.ini cluster.yml -b -v \
   --private-key=~/.ssh/private_key
 ```
 
@@ -46,7 +46,7 @@ You may want to add worker, control plane or etcd nodes to your existing cluster
 - Run the ansible-playbook command, substituting `cluster.yml` for `scale.yml`:
 
 ```ShellSession
-ansible-playbook -i inventory/mycluster/hosts.yml scale.yml -b -v \
+ansible-playbook -i inventory/mycluster/inventory.ini scale.yml -b -v \
   --private-key=~/.ssh/private_key
 ```
 
@@ -64,7 +64,7 @@ is not working, you can remove the node and install it again.
 Use `--extra-vars "node=<nodename>,<nodename2>"` to select the node(s) you want to delete.
 
 ```ShellSession
-ansible-playbook -i inventory/mycluster/hosts.yml remove-node.yml -b -v \
+ansible-playbook -i inventory/mycluster/inventory.ini remove-node.yml -b -v \
 --private-key=~/.ssh/private_key \
 --extra-vars "node=nodename,nodename2"
 ```
